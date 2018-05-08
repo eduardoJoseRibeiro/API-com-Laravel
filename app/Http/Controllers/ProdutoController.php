@@ -35,7 +35,8 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Cadastra produto e Retorna o Id do mesmo
+        return Produto::create($request->all());
     }
 
     /**
