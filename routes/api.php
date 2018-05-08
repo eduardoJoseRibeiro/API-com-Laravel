@@ -18,6 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function(){
-    Route::get('/produtos', 'ProdutoController@index');
-    Route::post('/produtos', 'ProdutoController@store');
+    Route::get('/produtos', 'ProdutoController@index'); //Lista
+    Route::post('/produtos', 'ProdutoController@store'); //Cadastra
+    Route::put('/produtos/{produto}', 'ProdutoController@update'); //Update
+    Route::get('/produtos/{produto}', 'ProdutoController@show'); //Mostra Produto Unico
+    Route::delete('/produtos/{produto}', 'ProdutoController@destroy'); //Delete
 });
