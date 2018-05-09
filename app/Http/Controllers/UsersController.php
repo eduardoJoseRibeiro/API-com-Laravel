@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Produto;
-use App\Http\Requests\ProdutoRequest as Request;
+use Illuminate\Http\Request;
+use App\User;
 
-class ProdutoController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        return Produto::all();
+        return User::all();
     }
 
     /**
@@ -25,43 +25,43 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //Cadastra produto e Retorna o Id do mesmo
-        return Produto::create($request->all());
+        return User::create($request->all());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Produto  $produto
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Produto $produto)
-    {
-        return $produto;
+    public function show(User $user)
+    {  
+       return $user; 
     }
+
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Produto  $produto
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, User $user)
     {
-        $produto->update($request->all());
-        return $produto;
+        $user->update($request->all());
+        return $user;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Produto  $produto
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produto $produto)
+    public function destroy(User $user)
     {
-        $produto->delete();
-        return $produto;
+        $user->delete();
+        return $user;
     }
 }
