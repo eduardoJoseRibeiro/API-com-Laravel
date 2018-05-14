@@ -14,7 +14,11 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        return Produto::all();
+        $tempo = \Carbon\Carbon::now()->addDays(1);
+        $produtos = \Cache::remember('api::produtos', $tempo, function(){
+            return Produto::all();
+        });
+        return $produtos;
     }
 
     /**
@@ -26,6 +30,7 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         //Cadastra produto e Retorna o Id do mesmo
+        \Cache::forget('api::produtos');
         $data = $request->all();
         $data['id_usuario'] = \Auth::user()->id;
         return Produto::create($data);
@@ -51,6 +56,7 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, Produto $produto)
     {
+        \Cache::forget('api::produtos');
         $produto->update($request->all());
         return $produto;
     }
@@ -63,6 +69,7 @@ class ProdutoController extends Controller
      */
     public function destroy(Produto $produto)
     {
+        \Cache::forget('api::produtos');
         $this->authorize('delete', $produto);
         $produto->delete();
         return $produto;
