@@ -17,7 +17,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('v1')->group(function(){
+Route::middleware('auth:api')->prefix('v1')->group(function(){
+    Route::get('usuarios/me', function(){
+        return request()->user();
+    });
+    
     Route::resources([
         'produtos' => 'ProdutoController',
         'usuarios' => 'UsersController'

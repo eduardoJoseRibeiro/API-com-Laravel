@@ -26,7 +26,9 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         //Cadastra produto e Retorna o Id do mesmo
-        return Produto::create($request->all());
+        $data = $request->all();
+        $data['id_usuario'] = \Auth::user()->id;
+        return Produto::create($data);
     }
 
     /**
@@ -61,6 +63,7 @@ class ProdutoController extends Controller
      */
     public function destroy(Produto $produto)
     {
+        $this->authorize('delete', $produto);
         $produto->delete();
         return $produto;
     }
